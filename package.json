@@ -4,6 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+      "install": "npm install --legacy-peer-deps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["express", "machine learning", "websockets", "twilio"],
@@ -15,5 +16,9 @@
     "express": "^4.21.0",
     "twilio": "^5.3.1",
     "ws": "^8.18.0"
+  },
+    "engines": {
+    "node": "16.x"
   }
+  
 }
