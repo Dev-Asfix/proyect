@@ -1,0 +1,15 @@
+<svg id="logo" xmlns="http://www.w3.org/2000/svg" width="61.695" height="61.695"
+  viewBox="0 0 61.695 61.695">
+  <g id="Layer_1" data-name="Layer 1" transform="translate(0 0)">
+    <circle id="Ellipse_4" data-name="Ellipse 4" cx="30.848" cy="30.848" r="30.848" fill="#7839f3" />
+    <path id="Path_3" data-name="Path 3"
+      d="M33.25,77.683H30l.682-3.409a6.9,6.9,0,0,1,6.762-5.534h3.273l-.688,3.409A6.887,6.887,0,0,1,33.25,77.683Z"
+      transform="translate(-12.954 -29.682)" fill="#fff" />
+    <path id="Path_4" data-name="Path 4"
+      d="M45.274,56.705H32.87l.682-3.381A6.9,6.9,0,0,1,40.33,47.79H52.712L52.03,51.2A6.887,6.887,0,0,1,45.274,56.705Z"
+      transform="translate(-14.193 -20.636)" fill="#fff" />
+    <path id="Path_5" data-name="Path 5"
+      d="M55.139,35.553H35.82l.682-3.409a6.9,6.9,0,0,1,6.762-5.534H62.582L61.9,30.019A6.892,6.892,0,0,1,55.139,35.553Z"
+      transform="translate(-15.467 -11.49)" fill="#fff" />
+  </g>
+</svg>

@@ -116,82 +116,99 @@ body {
   right: 20px; /* Ajusta la distancia desde el borde derecho */
   width: 200px;
   height: 200px;
-  background: rgba(40, 44, 52, 0.9);
-  border-radius: 50%;
+  
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7), 0 0 60px rgba(0, 255, 255, 0.5);
+ 
   transform-style: preserve-3d;
   animation: rotate 20s linear infinite;
   z-index: 1000;
 }
 
-.audio-container.playing {
-  background: rgba(30, 144, 255, 0.8);
-  transform: scale(1.2) rotateY(0deg);
-}
 
 .audio-container.playing::before {
   content: '';
   position: absolute;
-  width: 100%;
-  height: 120%;
+  width: 10%;
+  height: 80%;
   border-radius: 50%;
-  background: rgba(30, 144, 255, 0.5);
-  animation: pulse 1.5s infinite, glow 1.5s infinite;
+  animation: shadowBlink 1.6s infinite; /* Agrega la nueva animación */
 }
-
-@keyframes pulse {
+/* Definimos la animación para el parpadeo del filtro */
+@keyframes shadowBlink {
   0% {
-    transform: scale(1);
-    opacity: 0.6;
+    filter: none;
+  }
+  10% {
+    filter: drop-shadow(0 0 30px rgba(30, 143, 255, 0.897)) contrast(1.0); /* Turquesa */
+  }
+  30% {
+    filter: drop-shadow(0 0 30px rgba(157, 9, 225, 0.578)) contrast(1.1); /* Morado */
   }
   50% {
-    transform: scale(1.4);
-    opacity: 0.2;
+    filter: drop-shadow(0 0 30px rgb(3, 255, 238)) contrast(1.0); /* Verde */
+  }
+ 
+  
+  90% {
+    filter: drop-shadow(0 0 30px rgb(18, 2, 255, 10)) contrast(1); /* Azul */
   }
   100% {
-    transform: scale(1);
-    opacity: 0.6;
+    filter: none; /* Vuelve al estado sin filtro */
   }
 }
 
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 20px rgba(30, 144, 255, 0.8);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(30, 144, 255, 1);
-  }
-  100% {
-    box-shadow: 0 0 20px rgba(30, 144, 255, 0.8);
-  }
-}
 
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  0% {
-    transform: rotate(0deg);
-  }
-}
 
 .audio-icon {
-  width: 200px;
-  height: 200px;
-  background-image: url('images/anime-girl6.gif'); /* Ruta a la imagen del VTuber */
+  width: 320px;
+  height: 260px;
+  margin-bottom: 30px;
+ 
+  background-image: url('images/Robot.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transition: background-image 0.3s ease, transform 0.3s ease;
-  border-radius: 50%;
-  animation: bounce 1s infinite;
+  transition: transform 0.4s ease, background-image 1.3s ease;
+  
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 1)) contrast(1.0);
+}
+.audio-icon:hover {
+  /* Efecto de transformación 3D en el hover */
+  transform: rotateX(10deg) rotateY(10deg) scale(1.05);
+
+  /* Sombra más marcada para el efecto de profundidad */
+ 
+
+  /* Filtro de profundidad con brillo y sombra */
+  filter: drop-shadow(0 0 30px rgba(30, 144, 255, 0.8)) contrast(1.0);
 }
 
 .audio-container.playing .audio-icon {
-  background-image: url('images/anime-girl7.gif'); /* Imagen cuando el VTuber está hablando */
+  background-image: url('images/robi1.gif'); /* Imagen cuando el VTuber está hablando */
+  animation: portalTransition 20.5s ease-in-out forwards; /* Solo ocurre una vez */
+  animation: shadowBlink 1.8s infinite; /* Filtro parpadeante mientras reproduce */
+}
+
+/* Efecto de portal durante la transición */
+@keyframes portalTransition {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(30, 144, 255, 0.5), inset 0 0 0 rgba(64, 224, 208, 0.0);
+    border-radius: 50%;
+  }
+  50% {
+    transform: scale(1.2); /* Efecto de agrandarse */
+    box-shadow: 0 0 60px rgba(30, 144, 255, 0.7), inset 0 0 30px rgba(64, 224, 208, 0.5);
+    filter: blur(5px);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(30, 144, 255, 0.5), inset 0 0 0 rgba(64, 224, 208, 0);
+    filter: blur(0);
+  }
 }
 
 @keyframes bounce {
@@ -205,6 +222,8 @@ body {
     transform: translateY(0);
   }
 }
+
+
 
 
 /* Tacho de basura */
@@ -744,7 +763,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+ 
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   padding: 20px;
@@ -753,6 +772,8 @@ body {
   width: 90%; /* Se ajusta a la pantalla del móvil */
   border: 1px solid rgba(255, 255, 255, 0.3);
   overflow: hidden;
+  height:50rem ;
+  
 }
 
 .left-section h2 {
@@ -767,34 +788,41 @@ body {
   gap: 20px;
   width: 100%;
   align-items: center;
+  height: 60%;
 }
 
-.tacho, .info {
+.tacho{
   width: 100%; /* Se ajusta al ancho completo del móvil */
   height: 80%;
   text-align: center;
+}
+.info {
+  width: 80%; /* Se ajusta al ancho completo del móvil */
+  height: 10rem;
+  text-align: center;
+  padding-bottom: 0px;
 }
 
 /* Ajustes del contenedor de audio en móviles */
 .audio-container {
   bottom: 15px;
-  width: 150px;
-  height: 150px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 255, 255, 0.5);
-  animation: rotate 15s linear infinite;
+  width: 220px;
+  height: 220px;
+  
 }
 
 .audio-icon {
-  width: 150px;
-  height: 150px;
-  background-size: cover;
-  animation: bounce 0.8s infinite;
+  width: 400px;
+  height: 280px;
+  margin-bottom: 50px;
+
+ 
 }
 
 /* Ajuste del tacho de basura para móviles */
 .tacho {
   width: 100px;
-  height: 250px;
+  height: 270px;
   margin-bottom: 15px;
   box-shadow: inset 0 0 30px rgba(0, 255, 255, 0.3), 0 0 30px rgba(0, 255, 255, 0.5);
 }
@@ -808,6 +836,7 @@ body {
 .guardar {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   padding: 20px;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -817,10 +846,23 @@ body {
   overflow: hidden;
   border: 2px solid #00bcd4;
   animation: pulse 2s infinite;
-  width: 300%;
+  width: 90%;
+  gap: 5px;
 
 
   
+}
+
+.right-section {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(255, 0, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
 }
 
 .guardar::before {
@@ -828,7 +870,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 150%;
+  width: 100%;
   height: 100%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.7));
   opacity: 0.4;
@@ -836,6 +878,62 @@ body {
   animation: glowing 2s infinite alternate;
 }
 
+#guardadito {
+  background-color: #1e1e2f;
+  color: #e0e0e0;
+  font-size: 18px;
+  font-family: 'Arial', sans-serif;
+  padding: 12px 30px;
+  border: 2px solid #4c4cff;
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  width: 27.3rem;
+}
+
+#guardadito::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50.3rem;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.75s;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+#guardadito:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#guardadito:hover {
+  background-color: #2a2a4a;
+  box-shadow: 0px 0px 20px 5px rgba(76, 76, 255, 0.5);
+  transform: scale(1.05);
+}
+
+#guardadito:active {
+  transform: scale(0.98);
+  box-shadow: 0px 0px 25px 7px rgba(76, 76, 255, 0.8);
+}
+
+/* Contenedor para cada sección */
+#recommendations, #predictions {
+  width: 90%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  position: relative;
+  color: #00bcd4;
+  border: 1px solid #00bcd4;
+  text-shadow: 0 0 10px rgba(0,255,255,0.7);
+}
 
 
   

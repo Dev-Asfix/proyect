@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
 
 // Dirección del servidor WebSocket
-const ws = new WebSocket('ws://localhost:3000/');
+const ws = new WebSocket('ws://192.168.18.22:3000/');
 
 ws.on('open', function open() {
   console.log('Conectado al servidor WebSocket');
@@ -20,7 +20,7 @@ ws.on('close', function close() {
 function simulateSensorData() {
   setInterval(() => {
     
-    const distance = Math.random() * 25; // Distancia aleatoria entre 0 y 100 cm
+    const distance = Math.random() * 30; // Distancia aleatoria entre 0 y 100 cm
 
     let estado = getEstado(distance); // Determinar el estado basado en la distancia
 

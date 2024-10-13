@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tacho Inteligente - Avanzado</title>
+    <title>💦FlotaBin IA</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/public/images/Robot.png" type="image/x-icon">
   </head>
   <body>
     
-    
+<!--     AIzaSyDK7fN73zyVMYsj0g_ZP5HOKyOlZfTouxI -->
     <div class="container-principal">
       <div class="left-section">
         <!-- Contenido de la sección izquierda -->
-        <h2 id="h2e">Monitoreo del Tacho</h2>
+        <h2 id="h2e">FlotaBin IA </h2>
         <div class="content">
           <!-- Tacho a la izquierda -->
           <div class="tacho">
@@ -85,9 +86,9 @@
     
 
   <script>
-    const ws = new WebSocket('ws://localhost:3000');
+    const ws = new WebSocket('ws://192.168.18.22:3000');
         // Conexión WebSocket al servidor
-        const socket = new WebSocket('ws://localhost:3000');
+        const socket = new WebSocket('ws://192.168.18.22:3000');
     let estadoActual = '';
     let inicioEstado;
     let tiemposEstados = [];
@@ -417,6 +418,64 @@ function sensorDetectaLleno() {
     return Math.random() > 0.5; // Simulación (50% de probabilidad de estar lleno)
 }
 
+const image = document.querySelector('.audio-icon'); // Selecciona el ícono del audio
+
+let angleX = 0;
+let angleY = 0;
+let directionX = 1; // Dirección de rotación en X
+let directionY = 1; // Dirección de rotación en Y
+
+// Animación automática
+setInterval(() => {
+    // Verifica si el contenedor del ícono tiene la clase "playing"
+    const isPlaying = image.closest('.audio-container')?.classList.contains('playing');
+
+    // Ajusta los límites de rotación dependiendo de si está en "playing" o no
+    if (isPlaying) {
+        // Lógica cuando está en estado "playing"
+        angleX += directionX * 0.5; // Rotación más suave
+        angleY += directionY * 1.5;
+
+        // Oscilación aleatoria para un movimiento más natural
+        if (Math.random() < 0.1) {
+            directionX = Math.random() < 0.5 ? 1 : -1; // Cambia aleatoriamente la dirección
+        }
+        if (Math.random() < 0.1) {
+            directionY = Math.random() < 0.5 ? 1 : -1; // Cambia aleatoriamente la dirección
+        }
+
+        // Limita la rotación en menor rango cuando está en "playing"
+        if (angleX > 15 || angleX < -10) {
+            directionX *= -1; // Cambia de dirección
+        }
+        if (angleY > 20 || angleY < -20) {
+            directionY *= -1; // Cambia de dirección
+        }
+    } else {
+        // Lógica cuando NO está en estado "playing"
+        angleX += directionX; // Mantener una rotación más sutil
+        angleY += directionY;
+
+        // Oscilación aleatoria para un movimiento más natural
+        if (Math.random() < 0.05) {
+            directionX = Math.random() < 0.5 ? 1 : -1; // Cambia aleatoriamente la dirección
+        }
+        if (Math.random() < 0.05) {
+            directionY = Math.random() < 0.5 ? 1 : -1; // Cambia aleatoriamente la dirección
+        }
+
+        // Limita la rotación en mayor rango
+        if (angleX > 35 || angleX < -10) {
+            directionX *= -1; // Cambia de dirección
+        }
+        if (angleY > 30 || angleY < -30) {
+            directionY *= -1; // Cambia de dirección
+        }
+    }
+
+    // Aplica la rotación a la imagen
+    image.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+}, 100); // Velocidad de animación (ajustado a 100 ms para mayor fluidez)
 
 
   </script>
