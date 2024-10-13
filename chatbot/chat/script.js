@@ -15,7 +15,66 @@ const muteIcon = document.getElementById('mute-icon');
 // Botón para detener todo (reconocimiento y síntesis de voz)
 const stopButton = document.getElementById('stop-button');
 
+// Obtener referencias a los elementos del DOM
+const noteInput = document.getElementById('note-input');
+const addNoteButton = document.getElementById('add-note-button');
+const listNotesButton = document.getElementById('list-notes-button');
+const notesList = document.getElementById('notes-list');
+
+// Simulación de almacenamiento de notas (puedes usar localStorage o un servidor real)
+let notes = [];
 let isMuted = false; // Estado inicial: no está silenciado
+
+
+// Funciones para añadir, listar y eliminar notas
+function addNote(note) {
+  notes.push(note);
+  updateNotesList();
+}
+
+function updateNotesList() {
+  notesList.innerHTML = ''; // Limpiar lista de notas
+  notes.forEach((note, index) => {
+      const noteItem = document.createElement('li');
+      noteItem.textContent = note;
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Eliminar';
+      deleteButton.onclick = () => {
+          notes.splice(index, 1); // Eliminar la nota de la lista
+          updateNotesList();
+      };
+      noteItem.appendChild(deleteButton);
+      notesList.appendChild(noteItem);
+  });
+}
+
+function listNotes() {
+  if (notes.length === 0) {
+      speak('No tienes notas guardadas.');
+  } else {
+      let notesText = 'Tienes las siguientes notas: ';
+      notes.forEach((note, index) => {
+          notesText += `Nota ${index + 1}: ${note}. `;
+      });
+      speak(notesText); // Reproduce las notas en voz
+  }
+}
+
+// Evento para añadir nota desde la interfaz
+addNoteButton.addEventListener('click', () => {
+  const noteContent = noteInput.value.trim();
+  if (noteContent) {
+      addNote(noteContent);
+      noteInput.value = ''; // Limpiar el campo de entrada
+      speak('Nota añadida.');
+  } else {
+      speak('Por favor, escribe una nota.');
+  }
+});
+
+// Evento para listar todas las notas desde la interfaz
+listNotesButton.addEventListener('click', listNotes);
+
 
 // Detener todo lo que esté activo (reconocimiento y síntesis de voz)
 stopButton.addEventListener('click', () => {
@@ -44,17 +103,17 @@ function stopAllProcesses() {
 // Cambiar icono y activar reconocimiento de voz
 audioButton.addEventListener('click', () => {
   recognition.start();
-  audioButton.classList.add('audio-listening');
-  audioIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245-mic-listening.png"; // Cambia el ícono mientras escucha
+  audioButton.classList.add('message-input');
+  audioIcon.src = "/chatbot/images/audio111.png"; // Cambia el ícono mientras escucha
 });
 
 // Cambiar el estado de silenciado y el ícono
 muteButton.addEventListener('click', () => {
   isMuted = !isMuted; // Cambiar el estado
   if (isMuted) {
-    muteIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245-muted.png"; // Ícono de silenciado
+    muteIcon.src = "/chatbot/images/audio111.png"; // Ícono de silenciado
   } else {
-    muteIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png"; // Ícono de micrófono normal
+    muteIcon.src = "/chatbot/images/audio000.png"; // Ícono de micrófono normal
   }
 });
 
@@ -76,28 +135,40 @@ recognition.onerror = (event) => {
 
 
 // Manejar comandos de voz específicos
-// Manejar comandos de voz específicos
+// Modificación del reconocimiento de voz para manejar notas
 function handleVoiceCommand(command) {
-  if (command.includes('dime el nivel.')) {
-    // Llamar a la API del servidor para obtener el nivel del tacho
-    fetch('/estado')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error en la respuesta del servidor');
-        }
-        return response.json(); // Asegúrate de que la respuesta sea JSON válida
-      })
-      .then(data => {
-        const nivel = data.estado || 'No disponible';
-        displayBotResponse(`El nivel actual del tacho es: ${nivel}`);
-      })
-      .catch(error => {
-        console.error('Error al obtener el nivel:', error);
-        displayBotResponse('Lo siento, no puedo obtener el nivel en este momento.');
-      });
+  if (command.includes('añadir nota')) {
+      const noteContent = command.replace('añadir nota', '').trim();
+      if (noteContent) {
+          addNote(noteContent);
+          speak('Nota añadida.');
+      } else {
+          speak('No escuché ninguna nota para añadir.');
+      }
+  } else if (command.includes('consultar notas')) {
+      listNotes();
+  } else if (command.includes('eliminar nota')) {
+      const noteIndex = parseInt(command.match(/\d+/)) - 1; // Extraer el número de la nota
+      if (!isNaN(noteIndex) && noteIndex < notes.length) {
+          notes.splice(noteIndex, 1); // Eliminar la nota
+          updateNotesList();
+          speak(`Nota ${noteIndex + 1} eliminada.`);
+      } else {
+          speak('No pude entender el número de nota a eliminar.');
+      }
+  } else if (command.includes('dime el nivel')) {
+      fetch('/estado')
+          .then(response => response.json())
+          .then(data => {
+              speak(`El nivel actual es ${data.estado}`);
+          })
+          .catch(error => {
+              speak('Lo siento, no puedo obtener el nivel en este momento.');
+              console.error('Error al obtener el nivel:', error);
+          });
   } else {
-    // Si no es un comando específico, enviar el mensaje al chatbot
-    sendMessageToServer(command);
+      // Otros comandos preexistentes o no reconocidos
+      sendMessageToServer(command);
   }
 }
 
@@ -112,8 +183,8 @@ recognition.onspeechend = () => {
 
 // Función para detener la animación y restaurar el icono
 function stopAudioRecognition() {
-  audioButton.classList.remove('audio-listening');
-  audioIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png"; // Vuelve al icono de micrófono
+  audioButton.classList.remove('message-input');
+  audioIcon.src = "/chatbot/images/micro.png"; // Vuelve al icono de micrófono
 }
 
 
