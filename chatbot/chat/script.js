@@ -266,7 +266,7 @@ function sendMessageToServer(message) {
 // Function to display the bot's response
 // Función para mostrar la respuesta del bot y hablarla
 function displayBotResponse(response) {
-  $('<div class="message new"><figure class="avatar"><img src="http://algom.x10host.com/chat/img/icon-oracle.gif" /></figure>' + response + '</div>').appendTo($('.mCSB_container')).addClass('new');
+  $('<div class="message new"><figure class="avatar1"><img width="45px" src="/chatbot/images/Robot.png" /></figure>' + response + '</div>').appendTo($('.mCSB_container')).addClass('new');
   setDate();
   updateScrollbar();
   
@@ -298,7 +298,7 @@ function speak(text) {
 
 // Display loading animation
 function displayLoadingAnimation() {
-  $('<div class="message loading new"><figure class="avatar"><img src="http://algom.x10host.com/chat/img/icon-oracle.gif" /></figure><span class="loading-dots">Escribiendo<span></div>').appendTo($('.mCSB_container'));
+  $('<div class="message loading new"><figure class="avatar1"><img width="45px" src="/chatbot/images/Robot.png" /></figure><span class="loading-dots">Escribiendo<span></div>').appendTo($('.mCSB_container'));
   updateScrollbar();
 }
 

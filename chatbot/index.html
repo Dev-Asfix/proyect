@@ -12,12 +12,12 @@
 <body>
     <!-- design inspired by https://www.authkit.com/ -->
 <div class="header" >
-    <h2><a href="#" target="_blank" rel="noopener noreferrer">RAFA</a></h2>
+    <h2><a href="/public/index.html" target="_blank" rel="noopener noreferrer">Dashboard</a></h2>
     <div class="mid-spot" onclick="document.body.classList.toggle('gold');"></div>
-    <button class="contact-btn">
+    <button class="contact-btn" onclick="window.location.href='/FloatBin.html';">
       <span class="glow"></span>
-      <span class="contact-btn-content">Contact Us</span>
-    </button>
+      <span class="contact-btn-content">Volver</span>
+  </button>
   
     <div class="spotlight">
       <div></div>
@@ -94,7 +94,7 @@
   <div class="div2">
       <div id="contentToHide">
         <div class="heroSubP">
-          <p>Introducing</p>
+          <p>APSTI</p>
         </div>
         <div class="hero">
           <div class="heroT">
@@ -102,8 +102,8 @@
             <h2>FloatBin</h2>
           </div>
         </div>
-        <p class="heroP">The world's best platform, <br>
-          powered by EclipxOS + React.</p>
+        <p class="heroP">FloatBin AI: Inteligencia que <br>
+          transforma residuos en eficiencia.</p>
       </div>
   </div>
   
@@ -118,16 +118,6 @@
     <div></div>
   </div>
   <div class="hero-spacer"></div>
-
-
-
-
-
-
-
-
-
-
 
 
   
@@ -162,13 +152,16 @@
   <script>
     const chatDiv = document.querySelector('.chat');
     const contentToHide = document.getElementById('contentToHide');
+    const messagesContent = document.querySelector('.messages-content');
   
     chatDiv.addEventListener('mouseover', () => {
       contentToHide.style.display = 'none';
+      messagesContent.style.display = 'block';
     });
   
     chatDiv.addEventListener('mouseout', () => {
       contentToHide.style.display = 'block';
+      messagesContent.style.display = 'none';
     });
   </script>
   

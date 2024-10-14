@@ -124,6 +124,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Servir la carpeta del chatbot en la ruta '/chatbot'
 app.use('/chatbot', express.static(path.join(__dirname, 'chatbot')));
 
+// Servir la carpeta del chatbot en la ruta '/chatbot'
+app.use('/', express.static(path.join(__dirname, '/')));
+
 
 // Nueva ruta para obtener el estado actual
 app.get('/estado', (req, res) => {
